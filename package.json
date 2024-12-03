@@ -1,11 +1,4 @@
 {
-  "dependencies": {
-    "express": "^4.21.1",
-    "mongoose": "^8.8.1"
-  },
-  "devDependencies": {
-    "nodemon": "^3.1.7"
-  },
   "name": "server",
   "version": "1.0.0",
   "main": "index.js",
@@ -16,5 +9,12 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "express": "^4.21.1",
+    "mongoose": "^8.8.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
 }
