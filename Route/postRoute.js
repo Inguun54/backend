@@ -70,4 +70,5 @@ postRoute.get("/post/:postId", async (req, res) => {
   });
   res.send(response);
 });
+
 module.exports = postRoute;
