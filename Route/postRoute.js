@@ -2,7 +2,7 @@ const Route = require("express");
 const postModel = require("../Module/postSchema");
 const userModel = require("../Module/userSchema");
 const commentModel = require("../Module/commentSchema");
-
+const authMiddleWare = require("../authMiddleware");
 const postRoute = Route();
 
 postRoute.post("/writeComment", async (req, res) => {
@@ -21,7 +21,7 @@ postRoute.post("/writeComment", async (req, res) => {
   }
 });
 
-postRoute.post("/post", async (req, res) => {
+postRoute.post("/postcreate", async (req, res) => {
   const { caption, postImage, userId } = req.body;
   try {
     const createdPost = await postModel.create({
@@ -40,14 +40,22 @@ postRoute.post("/post", async (req, res) => {
   }
 });
 
-postRoute.get("/post", async (req, res) => {
-  const posts = await postModel
-    .find()
-    .populate("userId", "email username profileImage _id");
-  res.status(200).json(posts);
+postRoute.get("/posts", authMiddleWare, async (req, res) => {
+  const authHeader = req.headers("authorization");
+  if (!token) res.json({ message: "no token in header" });
+  const token = authHeader.split(" ")[1];
+  console.log(token);
+  try {
+    const posts = await postModel
+      .find()
+      .populate("userId", "email username profileImage _id");
+    res.json(posts);
+  } catch (error) {
+    res.status(404).json({ message: `failed to get posts, ${error}` });
+  }
 });
 
-postRoute.get("/posts", async (req, res) => {
+postRoute.get("/post", async (req, res) => {
   const posts = await postModel
     .find()
     .populate("userId", "email username _id")

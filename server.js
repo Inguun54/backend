@@ -6,7 +6,9 @@ const app = express();
 const userRoute = require("./Route/userRoute");
 const commentRoute = require("./Route/commentRoute");
 const likeRoute = require("./Route/likeRoute");
+const authMiddleWare = require("./authMiddleware");
 const cors = require("cors");
+const dotenv = require("dotenv");
 
 const connectDataBase = async () => {
   console.log("call connect db");
@@ -19,12 +21,13 @@ const connectDataBase = async () => {
     console.error("Error connecting to database:", error);
   }
 };
-
+dotenv.config();
 connectDataBase();
 app.use(cors());
 app.use(express.json());
 app.use(userRoute);
 app.use(postRoute);
+app.use(authMiddleWare);
 app.use(likeRoute);
 app.use(commentRoute);
 
