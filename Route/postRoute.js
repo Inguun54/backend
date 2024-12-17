@@ -66,6 +66,8 @@ postRoute.get("/post", async (req, res) => {
         select: "username profileImage",
       },
     });
+
+  return res.json({ posts });
 });
 postRoute.get("/post/:postId", async (req, res) => {
   const { postId } = req.query;
