@@ -27,7 +27,6 @@ app.use(cors());
 app.use(express.json());
 app.use(userRoute);
 app.use(postRoute);
-app.use(authMiddleWare);
 app.use(likeRoute);
 app.use(commentRoute);
 
